@@ -1,30 +1,112 @@
 <!DOCTYPE html>
 <html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogyan működik? - To-Do list weboldal | TEKNIK TRIBE</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
- <header>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-			  <div class="container-fluid position-relative">
-				<a class="navbar-brand mb-0 h1 text-center w-100" href="index.html">To-do list</a>
-			  </div>
-			</nav>
- </header>
- <main>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>To-Do list weboldal | TEKNIK TRIBE</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm bg-light navbar-light">
+                <div class="container-fluid position-relative">
+                    <a
+                        class="navbar-brand mb-0 h1 text-center w-100"
+                        href="index.html"
+                        >To-do list</a
+                    >
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div id="program" class="header">
+                <input
+                    type="text"
+                    id="bekeres"
+                    placeholder="Írjon be egy feladatot..."
+                />
+                <span onclick="newElement()" class="addBtn">+ Hozzáadás</span>
+            </div>
 
- </main>
- <footer class="text-center py-4">
-	<div class="mb-1">
-		<a href="hogyan.html" class="text-dark text-decoration-none">Hogyan működik?</a>
-		<span> | </span>
-		<a href="rolunk.html" class="text-dark text-decoration-none">Rólunk</a>
-		<span> | </span>
-		<a href="impresszum.html" class="text-dark text-decoration-none">Impresszum</a>
-	</div>
-	<div class="text-dark">© 2025 TEKNIK TRIBE - Minden jog fenntartva.</div>
-</body>
+            <ul id="lista">
+                <li>Test</li>
+            </ul>
+        </main>
+        <footer
+            class="text-center py-4 position-fixed w-100 bg-light"
+            style="bottom: 0px"
+        >
+            <div class="mb-1">
+                <a href="hogyan.html" class="text-dark text-decoration-none"
+                    >Hogyan működik?</a
+                >
+                <span> | </span>
+                <a href="impresszum.html" class="text-dark text-decoration-none"
+                    >Készitők és kapcsolat</a
+                >
+            </div>
+            <div class="text-dark">
+                © 2025 TEKNIK TRIBE - Minden jog fenntartva.
+            </div>
+        </footer>
+        <script>
+            var aNodelist = document.getElementsByTagName("li");
+            var i;
+            for (i = 0; i < aNodelist.length; i++) {
+                var span = document.createElement("span");
+                var txt = document.createTextNode("\u00D7");
+                span.className = "close";
+                span.appendChild(txt);
+                aNodelist[i].appendChild(span);
+            }
+
+            var close = document.getElementsByClassName("close");
+            var i;
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                };
+            }
+
+            var list = document.QuerySelector("ul");
+            list.addEventListener(
+                "click",
+                function (ev) {
+                    if (ev.target.tagName === "li") {
+                        ev.target.classList.toggle("checked");
+                    }
+                },
+                false,
+            );
+
+            function newElement() {
+                var li = document.createElement("li");
+                var inputValue = document.getElementById("userInput").value;
+                var t = document.createTextNode(inputValue);
+                li.appendChild(t);
+                if (inputValue === "") {
+                    alert("Bekell valamit írnod!");
+                } else {
+                    document.getElementById("list").appendChild(li);
+                }
+                document.getElementById("userInput").value = "";
+
+                var span = document.createElement("span");
+                var txt = document.createTextNode("\u00D7");
+                span.className = "close";
+                li.appendChild(span);
+
+                for (i = 0; i < close.length; i++) {
+                    close[i].onclick = function () {
+                        var div = this.parentElement;
+                        div.style.display = "none";
+                    };
+                }
+            }
+        </script>
+    </body>
 </html>
